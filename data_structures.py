@@ -18,7 +18,8 @@ class CellGraphCreator:
         self.start_idx = -1
         U, V = self.create_connections(cells, distance, self_loop)
         # self.graph = dgl.DGLGraph((U, V))
-        self.graph = dgl.DGLGraph((U, V))
+        # self.graph = dgl.DGLGraph((U, V))
+        self.graph = dgl.graph((U, V))
 
     def create_connections(self, cells, distance, self_loop):
         U = []

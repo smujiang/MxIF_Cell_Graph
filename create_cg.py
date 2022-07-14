@@ -1,9 +1,13 @@
 import os
-import pandas as pd
-from data_structures import Cell, CellGraphCreator
-import networkx as nx
-import matplotlib.pyplot as plt
+import pickle
+
 import dgl
+import matplotlib.pyplot as plt
+import networkx as nx
+import pandas as pd
+from networkx import write_gpickle
+
+from data_structures import Cell, CellGraphCreator
 
 output_dir = "\\\\mfad\\researchmn\\HCPR\\HCPR-GYNECOLOGICALTUMORMICROENVIRONMENT\\Multiplex_Img\\Alex_summer_internship\\output"
 data_dir = "\\\\mfad\\researchmn\\HCPR\\HCPR-GYNECOLOGICALTUMORMICROENVIRONMENT\\Multiplex_Img\\Alex_summer_internship\\data"
@@ -29,7 +33,7 @@ for s_id in all_sample_IDs[0:10]:
     sample_cells_PDL1 = list(df["PD1_CellClassification"][sample_cells_idx])
     sample_cells_class = list(df["MorviusTeir1"][sample_cells_idx])
 
-    print("%d nodes in the cell graph" % len(sample_cells_x))
+    print("\t %d nodes in the cell graph" % len(sample_cells_x))
 
     # cell_all_PDL1_set = set(df["PD1_CellClassification"][sample_cells_idx])
     # cell_all_class_set = set(df["MorviusTeir1"][sample_cells_idx])
@@ -54,11 +58,11 @@ for s_id in all_sample_IDs[0:10]:
     cg_creator = CellGraphCreator(cells, self_loop=False)
     cg = cg_creator.graph
 
-    save_to = os.path.join(output_dir, s_id+"_graph.pickle")
+    save_to = os.path.join(output_dir, s_id + "_graph.pickle")
     if not os.path.exists(save_to):
         # TODO: save graph to output_dir
-        print("TODO: save graph to output_dir")
-
+        # print("TODO: save graph to output_dir")
+        write_gpickle(cg, output_dir, protocol=2)
     cell_graph = dgl.to_networkx(cg)
     plt.figure(1, figsize=[32, 32])
     nx.draw_networkx(cell_graph, node_color=col_map, with_labels=False, pos=pos, node_size=2)
@@ -67,24 +71,6 @@ for s_id in all_sample_IDs[0:10]:
     save_to = os.path.join(output_dir, s_id + "_graph.png")
     if not os.path.exists(save_to):
         # TODO: add legend and save figure to output_dir
-        print("TODO: add legend and save figure to output_dir")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # print("TODO: add legend and save figure to output_dir")
+        filehandler = open("object.obj", 'wb')
+        pickle.dump(cell_graph, filehandler)
