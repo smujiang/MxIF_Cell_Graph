@@ -36,7 +36,14 @@ for s_id in all_sample_IDs[0:10]:
     # TODO: load saved cell graph for feature extraction
     print("TODO: load saved cell graph for feature extraction")
 
+    cg = nx.read_gpickle(cg_fn)
 
+
+    # TODO: extract features for the entire graph
+
+    # TODO: sample the graph as sub-graphs, extract features
+
+    # TODO: Are those features differentiable in disease subtypes?
 
 
 
