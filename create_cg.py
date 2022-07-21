@@ -58,19 +58,19 @@ for s_id in all_sample_IDs[0:10]:
     cg_creator = CellGraphCreator(cells, self_loop=False)
     cg = cg_creator.graph
 
+    # save graph to output_dir
     save_to = os.path.join(output_dir, s_id + "_graph.pickle")
     if not os.path.exists(save_to):
-        # TODO: save graph to output_dir
-        # print("TODO: save graph to output_dir")
-        write_gpickle(cg, output_dir, protocol=2)
+        write_gpickle(cg, save_to, protocol=2)
+
+    # add legend and save figure to output_dir
     cell_graph = dgl.to_networkx(cg)
     plt.figure(1, figsize=[32, 32])
     nx.draw_networkx(cell_graph, node_color=col_map, with_labels=False, pos=pos, node_size=2)
     plt.gca().invert_yaxis()
-    plt.show()
+    # plt.show()
     save_to = os.path.join(output_dir, s_id + "_graph.png")
     if not os.path.exists(save_to):
-        # TODO: add legend and save figure to output_dir
-        # print("TODO: add legend and save figure to output_dir")
-        filehandler = open("object.obj", 'wb')
-        pickle.dump(cell_graph, filehandler)
+        plt.savefig(save_to)
+
+
