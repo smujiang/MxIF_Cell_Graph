@@ -16,7 +16,7 @@ data_fn = os.path.join(data_dir, "AllBMS_Tier1_FOVs.csv")
 # data_header = "Centroid_X_um,Centroid_Y_um,Sample,Slide,Pathology,PD1_CellClassification,MorviusTeir1,Response".split(",")
 
 # read data from csv file
-df = pd.read_csv(data_fn)
+df = pd.read_csv(data_fn, engine='python')
 all_sample_IDs = sorted(set(df["Sample"]))
 print(all_sample_IDs)
 
