@@ -16,7 +16,7 @@ class Cell:
 class CellGraphCreator:
     def __init__(self, cells, distance=45, self_loop=True):
         self.start_idx = -1
-        self.detached_nodes = []
+        # self.detached_nodes = []
         U, V = self.create_connections(cells, distance, self_loop)
         # self.graph = dgl.DGLGraph((U, V))
         # self.graph = dgl.DGLGraph((U, V))
@@ -47,7 +47,7 @@ class CellGraphCreator:
                         if self.start_idx < 0:
                             self.start_idx = idx
             if not has_connection:
-                self.detached_nodes.append(cs)
+                # self.detached_nodes.append(cs)
                 U.append(idx)
                 V.append(idx)
                 if self.start_idx < 0:

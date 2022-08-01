@@ -11,7 +11,7 @@ from networkx import write_gpickle
 
 from data_structures import Cell, CellGraphCreator
 
-output_dir = 'output' #"\\\\mfad\\researchmn\\HCPR\\HCPR-GYNECOLOGICALTUMORMICROENVIRONMENT\\Multiplex_Img\\Alex_summer_internship\\output"
+output_dir = "output" # "\\\\mfad\\researchmn\\HCPR\\HCPR-GYNECOLOGICALTUMORMICROENVIRONMENT\\Multiplex_Img\\Alex_summer_internship\\output"
 data_dir = "\\\\mfad\\researchmn\\HCPR\\HCPR-GYNECOLOGICALTUMORMICROENVIRONMENT\\Multiplex_Img\\Alex_summer_internship\\data"
 data_fn = os.path.join(data_dir, "AllBMS_Tier1_FOVs.csv")
 # data_header = "Centroid_X_um,Centroid_Y_um,Sample,Slide,Pathology,PD1_CellClassification,MorviusTeir1,Response".split(",")
@@ -24,7 +24,7 @@ print(all_sample_IDs)
 color_dict = {"Tumor Cells": 'r', "Stromal Cells": 'b', "Immune Cells": 'g'}
 
 # create and save cell graph for each sample
-for s_id in all_sample_IDs[2:3]: #[0:10]:
+for s_id in all_sample_IDs[0:10]:
     try:
         print("Processing %s" % s_id)
         sample_cells_idx = df["Sample"] == s_id
@@ -67,7 +67,7 @@ for s_id in all_sample_IDs[2:3]: #[0:10]:
         save_to = os.path.join(output_dir, s_id + "_graph.pickle")
         if not os.path.exists(save_to):
             write_gpickle(cg, save_to, protocol=2)
-
+        print('pickled >:)')
 
         # add legend and save figure to output_dir
         cell_graph = dgl.to_networkx(cg)
