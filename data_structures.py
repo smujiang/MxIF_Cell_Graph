@@ -14,12 +14,15 @@ class Cell:
 
 
 class CellGraphCreator:
-    def __init__(self, cells, distance=45, self_loop=True):
+    def __init__(self, cells=None, cell_graph_save_dir=None, distance=45, self_loop=True):
         self.start_idx = -1
-        U, V = self.create_connections(cells, distance, self_loop)
-        # self.graph = dgl.DGLGraph((U, V))
-        # self.graph = dgl.DGLGraph((U, V))
-        self.graph = dgl.graph((U, V))
+        if cells is not None:
+            U, V = self.create_connections(cells, distance, self_loop)
+            # self.graph = dgl.DGLGraph((U, V))
+            # self.graph = dgl.DGLGraph((U, V))
+            self.graph = dgl.graph((U, V))
+        else:
+            self.graph = self.load(cell_graph_save_dir)
 
     def create_connections(self, cells, distance, self_loop):
         U = []
@@ -43,7 +46,10 @@ class CellGraphCreator:
                             self.start_idx = idx
         return np.array(U)-self.start_idx, np.array(V)-self.start_idx
 
+    def save(self, save_dir):
+        print("save graph")
 
-
-
+    def load(self, cg_dir):
+        print("load graph")
+        return None
 

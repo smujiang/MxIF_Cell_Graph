@@ -5,7 +5,6 @@ import dgl
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
-from networkx import write_gpickle
 
 from data_structures import Cell, CellGraphCreator
 
@@ -24,6 +23,7 @@ color_dict = {"Tumor Cells": 'r', "Stromal Cells": 'b', "Immune Cells": 'g'}
 
 # create and save cell graph for each sample
 for s_id in all_sample_IDs[0:10]:
+    s_id = "Mel30_BMS_region_003" # for debug
     print("Processing %s" % s_id)
     sample_cells_idx = df["Sample"] == s_id
     sample_label = set(df["Pathology"][sample_cells_idx])
@@ -59,9 +59,11 @@ for s_id in all_sample_IDs[0:10]:
     cg = cg_creator.graph
 
     # save graph to output_dir
-    save_to = os.path.join(output_dir, s_id + "_graph.pickle")
+    # save_to = os.path.join(output_dir, s_id + "_graph.pickle")
+    save_to = os.path.join(output_dir, s_id + "_graph.gml")
     if not os.path.exists(save_to):
-        write_gpickle(cg, save_to, protocol=2)
+        nx.write_gpickle(cg, save_to, protocol=2)
+        # nx.write_gml(cg, save_to)
 
     # add legend and save figure to output_dir
     cell_graph = dgl.to_networkx(cg)
