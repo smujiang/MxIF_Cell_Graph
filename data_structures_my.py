@@ -1,7 +1,7 @@
 import numpy as np
 import dgl
 from math import sqrt
-
+from sklearn.metrics import pairwise_distances
 
 
 class Cell:
@@ -16,6 +16,7 @@ class Cell:
 class CellGraphCreator:
     def __init__(self, cells=None, cell_graph_save_dir=None, distance=45, self_loop=True):
         self.start_idx = -1
+        dm = self.get_connections(cells, distance, self_loop)
         if cells is not None:
             U, V = self.create_connections(cells, distance, self_loop)
             # self.graph = dgl.DGLGraph((U, V))
@@ -24,6 +25,16 @@ class CellGraphCreator:
         else:
             self.graph = self.load(cell_graph_save_dir)
 
+
+    def get_connections(self, cells, distance, self_loop):
+        coord = []
+        for c in cells:
+            coord.append(c.loc)
+        dm = pairwise_distances(np.array(coord))
+        return dm
+
+
+    #TODO: different way to calculate connection matrix
     def create_connections(self, cells, distance, self_loop):
         U = []
         V = []
